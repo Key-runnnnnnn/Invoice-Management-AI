@@ -1,0 +1,179 @@
+text: `
+              Extract the data from the document and structure it into three sections: 
+              
+              1. **Invoices**: 
+                 - For each invoice, extract the following fields:
+                   - serialNumber
+                   - customerName
+                   - productNames
+                   - totalquantity
+                   -  totaltax
+                   - totalAmount
+                   - date
+                 - If extra information is available, include it as well.
+        
+              2. **Products**: 
+                 - For each product, extract the following fields:
+                   - productname
+                   - quantity
+                   - unitPrice
+                   - tax
+                   - priceWithTax
+                 - Optionally include the Discount field if available.
+        
+              3. **Customers**: 
+                 - For each customer, extract the following fields: [there is only one customer in the invoice]
+                   - customerName: (buyer name or consignee name or party name or customer name) 
+                   - companyName: (company name or party company name or customer company name)
+                   - phoneNumber: (buyer phone number or consignee phone number or party phone number or customer phone number)
+                   - totalAmount: (total amount or total bill amount or total invoice amount)
+                 - Optionally include any additional details such as email, address, etc.
+        
+              Ensure the data is well-structured and formatted as JSON with the appropriate fields for each table.
+
+              if there are multiple customers in the invoice then combine their products,invoices and customer details and make array of objects for each customer.so that we can store multiple customers data in the database.
+
+              if customerName or customer Details are not available then you can use "Unknown" as default value.
+        
+Example 1 structure: (Single Invoice and Customer)
+{
+  "total": 1,
+  "data": [
+    {
+      "invoices": [
+        {
+          "serialNumber": "INV-87654",
+          "customerName": "Alex Johnson",
+          "productNames": ["Product 1", "Product 2", "Product 3"],
+          "totalquantity": 4,
+          "totaltax": 25.00,
+          "totalAmount": 400.00,
+          "date": "2024-11-15"
+        }
+      ],
+      "products": [
+        {
+          "productname": "Product 1",
+          "quantity": 1,
+          "unitPrice": 100.00,
+          "tax": 5.00,
+          "priceWithTax": 105.00
+        },
+        {
+          "productname": "Product 2",
+          "quantity": 2,
+          "unitPrice": 50.00,
+          "tax": 5.00,
+          "priceWithTax": 55.00
+        },
+        {
+          "productname": "Product 3",
+          "quantity": 1,
+          "unitPrice": 100.00,
+          "tax": 15.00,
+          "priceWithTax": 115.00
+        }
+      ],
+      "customers": [
+        {
+          "customerName": "Alex Johnson",
+          "companyName": "AutoWorks",
+          "phoneNumber": "555-4321",
+          "totalAmount": 400.00
+        }
+      ]
+    }
+  ]
+}
+
+
+Example 2 structure: (Single Invoice and Multiple Customers)
+{
+  "total": 2,
+  "data": [
+    {
+      "invoices": [
+        {
+          "serialNumber": "INV-87654",
+          "customerName": "Alex Johnson",
+          "productNames": ["Product 1", "Product 2", "Product 3"],
+          "totalquantity": 4,
+          "totaltax": 25.00,
+          "totalAmount": 400.00,
+          "date": "2024-11-15"
+        }
+      ],
+      "products": [
+        {
+          "productname": "Product 1",
+          "quantity": 1,
+          "unitPrice": 100.00,
+          "tax": 5.00,
+          "priceWithTax": 105.00
+        },
+        {
+          "productname": "Product 2",
+          "quantity": 2,
+          "unitPrice": 50.00,
+          "tax": 5.00,
+          "priceWithTax": 55.00
+        },
+        {
+          "productname": "Product 3",
+          "quantity": 1,
+          "unitPrice": 100.00,
+          "tax": 15.00,
+          "priceWithTax": 115.00
+        }
+      ],
+      "customers": [
+        {
+          "customerName": "Alex Johnson",
+          "companyName": "AutoWorks",
+          "phoneNumber": "555-4321",
+          "totalAmount": 400.00
+        }
+      ]
+    },
+    {
+      "invoices": [
+        {
+          "serialNumber": "INV-15236",
+          "customerName": "Sarah Lee",
+          "productNames": ["Product A", "Product B", "Product C"],
+          "totalquantity": 3,
+          "totaltax": 15.00,
+          "totalAmount": 300.00,
+          "date": "2024-11-18"
+        }
+      ],
+      "products": [
+        {
+          "productname": "Product A",
+          "quantity": 1,
+          "unitPrice": 100.00,
+          "tax": 5.00,
+          "priceWithTax": 105.00
+        },
+        {
+          "productname": "Product B",
+          "quantity": 2,
+          "unitPrice": 50.00,
+          "tax": 10.00,
+          "priceWithTax": 60.00
+        }
+      ],
+      "customers": [
+        {
+          "customerName": "Sarah Lee",
+          "companyName": "Tech Corp",
+          "phoneNumber": "555-1234",
+          "totalAmount": 300.00
+        }
+      ]
+    }
+  ]
+}
+
+
+`
